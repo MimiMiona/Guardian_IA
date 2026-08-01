@@ -4,7 +4,22 @@ import PyPDF2
 from groq import Groq
 import json
 import os
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+import os
 
+app = FastAPI()
+
+# Ruta raíz para que muestre tu index.html si existe
+@app.get("/", response_class=HTMLResponse)
+def home():
+    archivo_html = "index.html"
+    if os.path.exists(archivo_html):
+        with open(archivo_html, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>Bienvenido a Guardian AI Backend 🚀</h1><p>La API está funcionando correctamente.</p>"
+
+# ... el resto de tus rutas de análisis (/api/analizar-resultados, etc.) ...
 # 1. Configurar el cliente de Groq con tu key gsk_...
 API_KEY = os.environ.get("GROQ_API_KEY", "gsk_AQUI_PEGAS_TU_KEY")
 client = Groq(api_key=API_KEY)
