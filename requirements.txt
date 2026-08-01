@@ -4,4 +4,4 @@ python-multipart
 pypdf2
 groq
 python-dotenv
-easyocr
+easyocr 
